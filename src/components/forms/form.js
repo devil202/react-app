@@ -51,37 +51,37 @@ export default class FormComponent extends React.Component {
     getStep3Data() { 
         let response = "";
         if (this.state.hobbies === "beach") {
-            response = <div className="d-flex flex-column" onChange={this.handleVisits.bind(this)} >
+            response = <div className="d-flex flex-column"  >
                 <h4 className="mb-3"> Places you would like to visit ?</h4>
                 <div className="d-flex flex-column align-items-start mx-auto">
                      <div className="form-group d-flex justify-content-center align-items-center" >
-                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-1" value="goa" />
+                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-1" value="goa" checked={this.state.visits.includes("goa")}  onChange={this.handleVisits.bind(this)}/>
                 <label className="form-group-label cursor-pointer" htmlFor="check-1">Goa</label>
             </div>
             <div className="form-group d-flex justify-content-center align-items-center" >
-            <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-2"  value="pondicherry"/>
+            <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-2"  value="pondicherry" checked={this.state.visits.includes("pondicherry")} onChange={this.handleVisits.bind(this)}/>
                 <label className="form-group-label cursor-pointer" htmlFor="check-2">Pondicherry</label>
             </div>
             <div className="form-group d-flex justify-content-center align-items-center" >
-                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-3" value="kerala" />
+                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-3" value="kerala"  checked={this.state.visits.includes("kerala")} onChange={this.handleVisits.bind(this)}/>
                 <label className="form-group-label cursor-pointer" htmlFor="check-3">Kerala</label>
              </div>
            </div>
         </div>
         } else {
-            response = <div className="d-flex flex-column" onChange={this.handleVisits.bind(this)}>
+            response = <div className="d-flex flex-column" >
                 <h4 className="mb-3"> Places you would like to visit ?</h4>
                 <div className="d-flex flex-column align-items-start mx-auto">
                     <div className="form-group d-flex justify-content-center align-items-center" >
-                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-1" value="shimla" />
+                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-1" value="shimla" checked={this.state.visits.includes("shimla")}  onChange={this.handleVisits.bind(this)}/>
                 <label className="form-group-label cursor-pointer" htmlFor="check-1">Shimla</label>
             </div>
             <div className="form-group d-flex justify-content-center align-items-center" >
-            <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-2"  value="manali"/>
+            <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-2"  value="manali" checked={this.state.visits.includes("manali")} onChange={this.handleVisits.bind(this)}/>
                 <label className="form-group-label cursor-pointer" htmlFor="check-2">Manali</label>
             </div>
             <div className="form-group d-flex justify-content-center align-items-center" >
-                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-3" value="nainital" />
+                <input type="checkbox" className="checkbox mr-3 cursor-pointer" id="check-3" value="nainital" checked={this.state.visits.includes("nainital")} onChange={this.handleVisits.bind(this)}/>
                 <label className="form-group-label cursor-pointer" htmlFor="check-3">Nainital</label>
              </div>
             </div>
@@ -156,12 +156,23 @@ export default class FormComponent extends React.Component {
 
     handleVisits(e) {
         this.setState((state) => {
-            const visits = [...state.visits, e.target.value]
+            return this.updateVisits(state, e);
+            
+        })
+    }
+
+    updateVisits(state,e) {
+        if (e.target.checked) {
+                const visits = [...state.visits, e.target.value]
             return {
                 visits
             }
-        })
-        console.log(e.target.value);
+            } else {
+                const visits = state.visits.filter((visit) => visit !== e.target.value )
+                return {
+                    visits
+                }
+        }
     }
 
     reset() {
