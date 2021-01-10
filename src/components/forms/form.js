@@ -127,7 +127,7 @@ export default class FormComponent extends React.Component {
     }
 
     handleHobbie(e) {
-        this.setState({ hobbies: e.target.value })
+        this.setState({ hobbies: e.target.value, visits: [] })
     }
 
     proceedToNextStep() {
